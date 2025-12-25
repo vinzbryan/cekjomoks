@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes Seberapa Jomoks Kamu?</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fde9ee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  margin-top: 16px;
+  width: 100%;
+  padding: 14px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.progress {
+  margin-top: 24px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 14px;
+  width: 0%;
+  background: linear-gradient(90deg, #60a5fa, #2563eb);
+  transition: width 0.5s ease;
+}
+
+.result {
+  display: none;
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.gif-box {
+  margin-top: 16px;
+}
+
+.gif-box img {
+  width: 100%;
+  border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Tes Seberapa Jomoks?</h1>
+  <div class="subtitle">Masukkan nama kamu dan temukan takdirmu~ 🌸</div>
+
+  <input id="nameInput" placeholder="Nama kamu">
+  <button onclick="cek()">Cek Sekarang!</button>
+
+  <div class="progress">
+    <div class="progress-fill" id="fill"></div>
+  </div>
+
+  <div class="result" id="resultText"></div>
+  <div class="gif-box" id="gifBox"></div>
+</div>
+
+<script>
+// =======================
+// KONFIGURASI ADMIN
+// =======================
+
+// Nama spesial (selalu 100%)
+const SPECIAL_NAMES = {
+  yuichi: true,
+  afghan: true,
+  kelvin: true,
+  vano: true
+};
+
+// Setting hasil
+const results = [
+  {
+    min: 90,
+    text: "TITISAN MAS AMBA 😱👑",
+    gif: "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyeXZpZmVoczB1bTFvdWV0bmJrNnYzMzM3NHNiOWRoMnJuY3Joc3QweCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LutbrGmqPnWFMVafY5/giphy.gif"
+  },
+  {
+    min: 70,
+    text: "Jomoks Elite ✨",
+    gif: "https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyMnk5MzZxdjhzd2p5Y204b2I5Nmd4MDMxOGM3dTQxbXE0ejU1Z3NraiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3yLV07l5EnXksjnouq/giphy.gif"
+  },
+  {
+    min: 40,
+    text: "Jomoks Karbit 😏",
+    gif: "https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUybHpuNGg1MDU5OWFvaTZ1NmE0dzg1ZDU5ZTlxcTl4cmlsbHowcmxjbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/x25pZcrub2JZXzcK93/giphy.gif"
+  },
+  {
+    min: 20,
+    text: "Suki Liar 🤢",
+    gif: "https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyZmdncTk5MDk4M2t0YWl3cjAyem54dmE5MXBhY2x3bnFmYnQwc3gxbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HQX3sliPpoxkcuOKiL/giphy.gif"
+  },
+  {
+    min: 0,
+    text: "Elu normal jir 😁",
+    gif: "https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif"
+  }
+];
+
+// =======================
+// LOGIC
+// =======================
+
+function cek() {
+  const name = document.getElementById("nameInput").value.trim().toLowerCase();
+  if (!name) return;
+
+  let percent;
+
+  if (SPECIAL_NAMES[name]) {
+    percent = 100;
+  } else {
+    percent = Math.floor(Math.random() * 101);
+  }
+
+  document.getElementById("fill").style.width = percent + "%";
+
+  const result = results.find(r => percent >= r.min);
+
+  document.getElementById("resultText").innerText =
+    `${name}, kamu ${percent}% jomoks! ${result.text}`;
+
+  document.getElementById("gifBox").innerHTML =
+    `<img src="${result.gif}" alt="gif">`;
+
+  document.getElementById("resultText").style.display = "block";
+}
+</script>
+
+</body>
+</html>
